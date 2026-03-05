@@ -17,4 +17,20 @@ router.get("/", async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 });
+router.post("/", async (req, res) => {
+    try {
+        const { name, email } = req.body;
+        const newUser = await prisma_1.default.user.create({
+            data: {
+                name,
+                email,
+            },
+        });
+        res.status(201).json(newUser);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
 exports.default = router;
