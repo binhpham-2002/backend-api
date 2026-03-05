@@ -24,6 +24,7 @@ router.post("/", async (req, res) => {
             data: {
                 name,
                 email,
+                password: "123456"
             },
         });
         res.status(201).json(newUser);

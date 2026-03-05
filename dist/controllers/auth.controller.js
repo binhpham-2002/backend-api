@@ -8,7 +8,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const prisma_1 = __importDefault(require("../prisma"));
 const register = async (req, res) => {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
     try {
         const existingUser = await prisma_1.default.user.findUnique({
             where: { email },
@@ -19,6 +19,7 @@ const register = async (req, res) => {
         const hashedPassword = await bcrypt_1.default.hash(password, 10);
         await prisma_1.default.user.create({
             data: {
+                name,
                 email,
                 password: hashedPassword,
             },
