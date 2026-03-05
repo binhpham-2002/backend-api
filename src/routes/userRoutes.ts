@@ -1,13 +1,17 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
+import prisma from "../lib/prisma";
 
 const router = Router();
 
-// GET /api/users
-router.get("/", (req, res) => {
-  res.json([
-    { id: 1, name: "Binh" },
-    { id: 2, name: "Demo User" }
-  ]);
+// GET all users
+router.get("/", async (req: Request, res: Response) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 export default router;

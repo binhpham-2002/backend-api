@@ -8,6 +8,7 @@ const cors_1 = __importDefault(require("cors"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const auth_middleware_1 = require("./middleware/auth.middleware");
 const task_routes_1 = __importDefault(require("./routes/task.routes"));
+const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
@@ -20,4 +21,5 @@ app.get("/api/profile", auth_middleware_1.authenticate, (req, res) => {
     res.json({ message: "Protected route accessed", user: req.user });
 });
 app.use("/api/tasks", task_routes_1.default);
+app.use("/api/users", userRoutes_1.default);
 exports.default = app;
